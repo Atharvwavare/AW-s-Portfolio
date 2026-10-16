@@ -17,7 +17,6 @@ type IconName =
   | "sun"
   | "x";
 
-
 function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   const paths: Record<IconName, ReactNode> = {
     arrow: (
@@ -45,12 +44,12 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
       </>
     ),
     download: (
-  <>
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <path d="M7 10l5 5 5-5" />
-    <path d="M12 15V3" />
-  </>
-),
+      <>
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <path d="M7 10l5 5 5-5" />
+        <path d="M12 15V3" />
+      </>
+    ),
     github: (
       <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.3 4 5 5 0 0 0 19.2.5S18 0 15 1.8a13.4 13.4 0 0 0-7 0C5 .1 3.8.5 3.8.5A5 5 0 0 0 3.7 4a5.4 5.4 0 0 0-1.5 3.7c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 8 18v4" />
     ),
@@ -160,7 +159,15 @@ const projects = [
     title: "Financial Fraud Detection Pipeline",
     description:
       "End-to-end banking fraud pipeline processing 250K+ transactions with PySpark, Databricks, Delta Lake, and AWS S3 — Bronze/Silver/Gold medallion architecture delivering star-schema analytics.",
-    tech: ["Python", "SQL", "PySpark", "Databricks", "AWS S3","Medallion Architecture","Git & GitHub"],
+    tech: [
+      "Python",
+      "SQL",
+      "PySpark",
+      "Databricks",
+      "AWS S3",
+      "Medallion Architecture",
+      "Git & GitHub",
+    ],
     href: "https://github.com/Atharvwavare/indian-financial-fraud-pipeline",
     cta: "View Code",
     icon: "layers" as IconName,
@@ -171,7 +178,7 @@ const projects = [
     title: "2015 US flights Delay Analytics Pipeline",
     description:
       "Built an end-to-end ETL pipeline analyzing 5.33M U.S. flight records using PySpark and Delta Lake on Databricks, following a medallion architecture with a Databricks SQL dashboard.",
-    tech: ["PySpark", "AWS S3", "DataBricks", "SQL dashboard","ETL pipeline"],
+    tech: ["PySpark", "AWS S3", "DataBricks", "SQL dashboard", "ETL pipeline"],
     href: "https://github.com/Atharvwavare/flight-delay-analytics-pipeline",
     cta: "View code",
     icon: "shield" as IconName,
@@ -182,7 +189,7 @@ const projects = [
     title: "PECM - Personal Expense Control Manager",
     description:
       "A platform for managing personal expenses, built using Spring Boot, Java and React.js. It allows users to track their expenses, categorize them, and visualize spending patterns through interactive charts.",
-    tech: ["Spring Boot", "MYSQL", "TypeScript","REST API"],
+    tech: ["Spring Boot", "MYSQL", "TypeScript", "REST API"],
     href: "https://pecm-frontend.vercel.app/",
     cta: "Live Demo",
     icon: "code" as IconName,
@@ -191,17 +198,19 @@ const projects = [
 ];
 
 export default function App() {
-  const [dark, setDark] = useState(() =>
-    localStorage.getItem("theme")
-      ? localStorage.getItem("theme") === "dark"
-      : window.matchMedia("(prefers-color-scheme: dark)").matches,
-  );
+  // ✅ First-time visitors get LIGHT. Returning visitors keep their saved choice.
+  const [dark, setDark] = useState<boolean>(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") return true;
+    if (saved === "light") return false;
+    return false; // default for first-time visitors: LIGHT
+  });
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    document.documentElement.dataset.
-    theme = dark ? "dark" : "light";
-    localStorage.setItem("theme", dark ? "light" : "dark");
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    // ✅ Save the theme that matches the current state (was inverted before)
+    localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
 
   useEffect(() => {
@@ -255,8 +264,8 @@ export default function App() {
       <main>
         <section id="home" className="hero">
           <div className="portrait-wrap" aria-label="Portrait of Atharv Wavare">
-  <img src="/my_photo.jpeg" alt="Atharv Wavare" />
-</div>
+            <img src="/my_photo.jpeg" alt="Atharv Wavare" />
+          </div>
 
           <div className="hero-copy">
             <p className="eyebrow">
@@ -275,16 +284,15 @@ export default function App() {
               <a className="primary-button" href="#projects">
                 View my work <Icon name="arrow" />
               </a>
-               {/* ↓ NEW: Resume download button */}
-  <a
-    className="secondary-button"
-    href="/Atharv_Resume.pdf"
-    download="Atharv-Resume.pdf"
-    aria-label="Download Atharv resume"
-  >
-    <Icon name="download" size={18} />
-    Resume
-  </a>
+              <a
+                className="secondary-button"
+                href="/Atharv_Resume.pdf"
+                download="Atharv-Resume.pdf"
+                aria-label="Download Atharv resume"
+              >
+                <Icon name="download" size={18} />
+                Resume
+              </a>
               <a className="text-link" href="mailto:atharvwavare7@gmail.com">
                 Get in touch
               </a>
@@ -329,7 +337,7 @@ export default function App() {
             <div className="about-copy">
               <p>
                 I'm an Information Technology student moving into Data
-                Engineering. I spend my time on Python, SQL,PySpark, data
+                Engineering. I spend my time on Python, SQL, PySpark, data
                 modeling, and pipeline design — turning messy sources into
                 clean, queryable tables that analysts and applications can
                 trust.
@@ -452,7 +460,7 @@ export default function App() {
         </section>
 
         <section className="contact-section">
-          <p className="eyebrow">Open to worth with you</p>
+          <p className="eyebrow">Open to working with you</p>
           <h2>
             Let's build reliable <em>data systems.</em>
           </h2>

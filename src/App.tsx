@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactNode } from "react";
-import my_photo from "./images/my_photo.jpeg";
 
 type IconName =
   | "arrow"
@@ -200,8 +199,9 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    document.documentElement.dataset.theme = dark ? "dark" : "light";
-    localStorage.setItem("theme", dark ? "dark" : "light");
+    document.documentElement.dataset.
+    theme = dark ? "dark" : "light";
+    localStorage.setItem("theme", dark ? "light" : "dark");
   }, [dark]);
 
   useEffect(() => {
@@ -255,7 +255,7 @@ export default function App() {
       <main>
         <section id="home" className="hero">
           <div className="portrait-wrap" aria-label="Portrait of Atharv Wavare">
-  <img src={my_photo} alt="Atharv Wavare" />
+  <img src="/my_photo.jpeg" alt="Atharv Wavare" />
 </div>
 
           <div className="hero-copy">

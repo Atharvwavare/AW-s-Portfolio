@@ -1,7 +1,7 @@
 {
   "description": "Showcase your skills and projects with a professional portfolio designed for Java full stack developers and IT students, featuring responsive design and smooth navigation.",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,
